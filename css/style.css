@@ -2833,7 +2833,7 @@ footer.pink-footer .menu-info a:hover {
 }
 @media (max-width: 768px) {
   .map-street-map-content-info:after {
-    transform: rotate(180deg);
+    transform: rotate(180deg) translateX(-50%);
     bottom: unset;
     top: 100%;
   }
