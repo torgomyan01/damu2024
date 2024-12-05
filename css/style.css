@@ -2682,6 +2682,23 @@ footer.pink-footer .menu-info a:hover {
   text-transform: uppercase;
   cursor: pointer;
   transition: 0.3s;
+  position: relative;
+}
+.map-street-tabs-item:after {
+  content: "";
+  width: 30px;
+  height: 30px;
+  background-color: #3868AC;
+  clip-path: polygon(34% 50%, 100% 100%, 100% 0);
+  position: absolute;
+  right: calc(100% - 1px);
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: 0.3s;
+}
+.map-street-tabs-item.active:after {
+  opacity: 1;
 }
 .map-street-tabs-item:hover {
   background-color: rgba(56, 104, 172, 0.93);
@@ -2691,6 +2708,9 @@ footer.pink-footer .menu-info a:hover {
 }
 .map-street-tabs-item:nth-of-type(2):hover {
   background-color: rgba(4, 43, 98, 0.93);
+}
+.map-street-tabs-item:nth-of-type(2):after {
+  background-color: #042B62;
 }
 .map-street-zoom {
   width: 128.911px;
@@ -2833,7 +2853,7 @@ footer.pink-footer .menu-info a:hover {
 }
 @media (max-width: 768px) {
   .map-street-map-content-info:after {
-    transform: rotate(180deg) translateX(-50%);
+    transform: rotate(180deg) translateX(50%);
     bottom: unset;
     top: 100%;
   }

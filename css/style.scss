@@ -1476,6 +1476,27 @@ footer {
       text-transform: uppercase;
       cursor: pointer;
       transition: 0.3s;
+      position: relative;
+      &:after{
+        content: "";
+        width: 30px;
+        height: 30px;
+        background-color: #3868AC;
+        clip-path: polygon(34% 50%, 100% 100%, 100% 0);
+        position: absolute;
+        right: calc(100% - 1px);
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0;
+        transition: 0.3s;
+      }
+
+      &.active{
+        &:after{
+          opacity: 1;
+        }
+      }
+
       &:hover{
         background-color: rgba(56, 104, 172, 0.93);
       }
@@ -1483,6 +1504,9 @@ footer {
         background-color: #042B62;
         &:hover{
           background-color: rgba(4, 43, 98, 0.93);
+        }
+        &:after{
+          background-color: #042B62;
         }
       }
     }
@@ -1623,7 +1647,7 @@ footer {
         background-color: #fff;
         
         @media (max-width: 768px) {
-          transform: rotate(180deg) translateX(-50%);
+          transform: rotate(180deg) translateX(50%);
           bottom: unset;
           top: 100%;
         }

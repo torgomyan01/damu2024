@@ -335,6 +335,22 @@ $(document).ready(function () {
 const mapStreetMapContent = document.querySelector('.map-street-map-content');
 const MapSVG = $('.map-street-map-content svg g');
 const mapStreetMapContentInfo = $('.map-street-map-content-info');
+const mapStreetTabsItem = document.querySelectorAll('.map-street-tabs-item');
+const svgTabs = $('.map-street-map-content svg');
+
+mapStreetTabsItem.forEach((item, index) => {
+  item.addEventListener('click', function (){
+    mapStreetTabsItem.forEach((_el) => _el.classList.remove('active'));
+
+    item.classList.add('active');
+
+    svgTabs.css('display', 'none');
+
+    svgTabs.get(index).style.display = 'block';
+  })
+})
+
+
 
 MapSVG.on('click', function (){
   const title = this.dataset.title || '';
