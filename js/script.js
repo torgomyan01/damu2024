@@ -351,59 +351,60 @@ MapSVG.on('click', function (){
     height: elem.height,
   }
 
-  mapStreetMapContentInfo.css({
-    left: params.x,
-    top: params.y,
-    transform: `translate(${(getTextInfo.left - elem.left) - mapStreetMapContentInfo.width() / xPosition}px, ${(getTextInfo.top - elem.top) + getTextInfo.height + 30}px)`
-  }).addClass('active');
+    mapStreetMapContentInfo.css({
+      left: params.x,
+      top: params.y,
+      transform: `translate(${(getTextInfo.left - elem.left) - mapStreetMapContentInfo.width() / xPosition}px, ${(getTextInfo.top - elem.top) + getTextInfo.height + 30}px)`
+    }).addClass('active');
 
-  mapStreetMapContentInfo.find('.map-street-map-content-info-title').text(title);
+    mapStreetMapContentInfo.find('.map-street-map-content-info-title').text(title);
 
-  MapSVG.find('path').css({
-    fill: '',
-    stroke: '',
-  })
-  MapSVG.find('rect').css({
-    fill: '',
-    stroke: '',
-  })
+    MapSVG.find('path').css({
+      fill: '',
+      stroke: '',
+    })
+    MapSVG.find('rect').css({
+      fill: '',
+      stroke: '',
+    })
 
-  $(this).find('path[fill="white"]').css({
-    fill: '#f3eeee',
-    stroke: 'red',
-  })
-  $(this).find('rect[fill="white"]').css({
-    fill: '#f3eeee',
-    stroke: 'red',
-  })
+    $(this).find('path[fill="white"]').css({
+      fill: '#f3eeee',
+      stroke: 'red',
+    })
+    $(this).find('rect[fill="white"]').css({
+      fill: '#f3eeee',
+      stroke: 'red',
+    })
+
 })
 
 MapSVG.on('mouseleave', function (){
-  mapStreetMapContentInfo.removeClass('active');
+    mapStreetMapContentInfo.removeClass('active');
 
-  MapSVG.find('path').css({
-    fill: '',
-    stroke: '',
-  })
-  MapSVG.find('rect').css({
-    fill: '',
-    stroke: '',
-  })
+    MapSVG.find('path').css({
+      fill: '',
+      stroke: '',
+    })
+    MapSVG.find('rect').css({
+      fill: '',
+      stroke: '',
+    })
 })
 
 mapStreetMapContentInfo.on('mouseenter', function (){
   mapStreetMapContentInfo.addClass('active');
 })
 mapStreetMapContentInfo.on('mouseleave', function (){
-  mapStreetMapContentInfo.removeClass('active');
+    mapStreetMapContentInfo.removeClass('active');
 
-  MapSVG.find('path').css({
-    fill: '',
-    stroke: '',
-  })
-  MapSVG.find('rect').css({
-    fill: '',
-    stroke: '',
-  })
+    MapSVG.find('path').css({
+      fill: '',
+      stroke: '',
+    })
+    MapSVG.find('rect').css({
+      fill: '',
+      stroke: '',
+    })
 })
 

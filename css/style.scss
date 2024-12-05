@@ -1389,13 +1389,18 @@ footer {
 .map-street{
   &-types{
     width: 100%;
-    height: 90px;
+    min-height: 90px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
     background: rgba(4, 43, 98, 0.2);
     gap: 31px;
-    padding: 0 36px;
+    padding: 24px 36px;
+
+    @media (max-width: 1200px){
+      justify-content: start;
+    }
 
     &.colors{
       background-color: transparent;
@@ -1430,6 +1435,9 @@ footer {
     justify-content: space-between;
     align-items: center;
     margin-top: 118px;
+    @media (max-width: 1200px){
+      flex-direction: column;
+    }
   }
 
   &-functions{
@@ -1447,6 +1455,12 @@ footer {
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
+    @media (max-width: 1200px){
+      flex-direction: row;
+      width: 320px;
+      height: auto;
+      margin-top: 31px;
+    }
     &-item{
       width: 100%;
       height: calc(100% / 3);
@@ -1482,6 +1496,9 @@ footer {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    @media (max-width: 1200px){
+      display: none;
+    }
     &-plus{
       width: 100%;
       height: 100%;
@@ -1518,9 +1535,27 @@ footer {
     width: 100%;
     margin-right: 68px;
     position: relative;
+    @media (max-width: 1200px) {
+      margin-right: 0;
+    }
+    @media (max-width: 1200px){
+      height: auto;
+    }
+
+    @media (max-width: 768px){
+      overflow-x: auto;
+    }
+
     svg{
       width: 100%;
+      //min-width: 1517px;
       height: auto;
+      @media (max-width: 768px){
+        height: 510px;
+        //min-width: auto;
+        width: auto;
+        margin-bottom: 10px;
+      }
       g{
         cursor: pointer;
       }
@@ -1538,8 +1573,40 @@ footer {
       z-index: 1;
       opacity: 0;
       visibility: hidden;
+
+      @media (max-width: 768px) {
+        display: none;
+        filter: unset !important;
+        top: 0 !important;
+        left: 0 !important;
+        transform: translateY(0) !important;
+        position: relative !important;
+        margin-bottom: 20px;
+      }
+
+      &.mobile{
+        display: none;
+        margin-bottom: -320px;
+        transform: translateY(-340px) !important;
+        @media (max-width: 768px) {
+          display: block;
+        }
+        .map-street-map-content-info-img{
+          img{
+            max-width: 200px;
+          }
+        }
+      }
+
+      @media (max-width: 768px) {
+        width: 100%;
+        top: 0 !important;
+        left: 0 !important;
+        transform: translateY(-100%);
+      }
+
       &.active{
-        opacity: 1;
+        opacity: 1 !important;
         visibility: visible;
       }
 
@@ -1554,6 +1621,12 @@ footer {
         bottom: calc(100% - 1px);
         clip-path: polygon(50% 38%, 0% 100%, 100% 100%);
         background-color: #fff;
+        
+        @media (max-width: 768px) {
+          transform: rotate(180deg);
+          bottom: unset;
+          top: 100%;
+        }
       }
 
       &-img{
@@ -1633,6 +1706,10 @@ footer {
     font-size: 26.484px;
     font-weight: 75;
     line-height: 100%;
+
+    @media (max-width: 992px){
+      font-size: 17.497px;
+    }
     input{
       display: none;
     }
@@ -1645,6 +1722,10 @@ footer {
       margin-right: 10px;
       position: relative;
       cursor: pointer;
+      @media (max-width: 992px){
+        width: 27px;
+        height: 27px;
+      }
       &:after{
         content: "";
         position: absolute;
@@ -1657,6 +1738,12 @@ footer {
         transform: rotate(45deg);
         transition: 0.3s;
         opacity: 0;
+        @media (max-width: 992px){
+          left: 9px;
+          top: 2px;
+          width: 7px;
+          height: 15px;
+        }
       }
     }
 
