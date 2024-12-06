@@ -1433,7 +1433,7 @@ footer {
   &-body{
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: start;
     margin-top: 118px;
     @media (max-width: 1200px){
       flex-direction: column;
@@ -1446,6 +1446,9 @@ footer {
     align-items: center;
     flex-direction: column;
     gap: 33px;
+    @media (max-width: 1200px){
+      width: 100%;
+    }
   }
 
   &-tabs{
@@ -1460,6 +1463,9 @@ footer {
       width: 320px;
       height: auto;
       margin-top: 31px;
+    }
+    @media (max-width: 768px){
+      width: 100%;
     }
     &-item{
       width: 100%;
@@ -1489,6 +1495,13 @@ footer {
         transform: translateY(-50%);
         opacity: 0;
         transition: 0.3s;
+
+        @media (max-width: 1200px){
+          right: 50%;
+          transform: translateX(50%) rotate(90deg);
+          top: unset;
+          bottom: calc(100% - 1px);
+        }
       }
 
       &.active{
@@ -1555,7 +1568,7 @@ footer {
     }
   }
   &-map-content{
-    height: 725px;
+    min-height: 725px;
     width: 100%;
     margin-right: 68px;
     position: relative;
@@ -1563,7 +1576,7 @@ footer {
       margin-right: 0;
     }
     @media (max-width: 1200px){
-      height: auto;
+      min-height: auto;
     }
 
     @media (max-width: 768px){

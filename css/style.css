@@ -2636,7 +2636,7 @@ footer.pink-footer .menu-info a:hover {
 .map-street-body {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
   margin-top: 118px;
 }
 @media (max-width: 1200px) {
@@ -2650,6 +2650,11 @@ footer.pink-footer .menu-info a:hover {
   align-items: center;
   flex-direction: column;
   gap: 33px;
+}
+@media (max-width: 1200px) {
+  .map-street-functions {
+    width: 100%;
+  }
 }
 .map-street-tabs {
   width: 128px;
@@ -2665,6 +2670,11 @@ footer.pink-footer .menu-info a:hover {
     width: 320px;
     height: auto;
     margin-top: 31px;
+  }
+}
+@media (max-width: 768px) {
+  .map-street-tabs {
+    width: 100%;
   }
 }
 .map-street-tabs-item {
@@ -2696,6 +2706,14 @@ footer.pink-footer .menu-info a:hover {
   transform: translateY(-50%);
   opacity: 0;
   transition: 0.3s;
+}
+@media (max-width: 1200px) {
+  .map-street-tabs-item:after {
+    right: 50%;
+    transform: translateX(50%) rotate(90deg);
+    top: unset;
+    bottom: calc(100% - 1px);
+  }
 }
 .map-street-tabs-item.active:after {
   opacity: 1;
@@ -2756,7 +2774,7 @@ footer.pink-footer .menu-info a:hover {
   background-color: rgba(196, 196, 196, 0.93);
 }
 .map-street-map-content {
-  height: 725px;
+  min-height: 725px;
   width: 100%;
   margin-right: 68px;
   position: relative;
@@ -2768,7 +2786,7 @@ footer.pink-footer .menu-info a:hover {
 }
 @media (max-width: 1200px) {
   .map-street-map-content {
-    height: auto;
+    min-height: auto;
   }
 }
 @media (max-width: 768px) {
