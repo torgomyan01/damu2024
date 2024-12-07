@@ -518,17 +518,17 @@ svg.on("mouseleave", () => {
   isPanning = false;
   svg.css('cursor', "grab");
 });
-
-svg.on("wheel", (e) => {
-  e.preventDefault();
-  const delta = e.originalEvent.deltaY > 0 ? 0.9 : 1.1;
-
-  const newScale = Math.min(Math.max(scale * delta, 0.5), 5);
-  if (newScale < scale) {
-    panX = panX * (newScale / scale);
-    panY = panY * (newScale / scale);
-  }
-
-  scale = newScale;
-  updateTransform();
-});
+//
+// svg.on("wheel", (e) => {
+//   e.preventDefault();
+//   const delta = e.originalEvent.deltaY > 0 ? 0.9 : 1.1;
+//
+//   const newScale = Math.min(Math.max(scale * delta, 0.5), 5);
+//   if (newScale < scale) {
+//     panX = panX * (newScale / scale);
+//     panY = panY * (newScale / scale);
+//   }
+//
+//   scale = newScale;
+//   updateTransform();
+// });
