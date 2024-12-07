@@ -331,6 +331,11 @@ $(document).ready(function () {
 //--------------- STREET MAP FUNCTIONS  ---------------------------
 //-----------------------------------------------------------------
 
+let scale = 1;
+let panX = 0;
+let panY = 0;
+let isPanning = false;
+let startX, startY;
 
 const mapStreetMapContent = document.querySelector('.map-street-map-content');
 const MapSVG = $('.map-street-map-content svg g');
@@ -347,8 +352,48 @@ mapStreetTabsItem.forEach((item, index) => {
     svgTabs.css('display', 'none');
 
     svgTabs.get(index).style.display = 'block';
+
+    scale = 1;
+    panX = 0;
+    panY = 0;
+
+    updateTransform()
   })
 })
+
+MapSVG.each((index, g) => {
+  setPositionTextMap(g)
+})
+
+
+function setPositionTextMap(g){
+  const getText = $(g).find('foreignObject');
+  const path = g.querySelector('path')?.getBBox();
+  const rect = g.querySelector('rect')?.getBBox();
+  const fixWidth = +getText.attr('data-width');
+  const fixHeight = +getText.attr('data-height');
+
+
+  const elem = g.getBoundingClientRect();
+
+
+  getText.attr({
+    'width': fixWidth || path?.width || rect?.width,
+    'height': fixHeight || path?.height || rect?.height,
+  })
+
+  const params = {
+    x: path?.x || rect?.x,
+    y: path?.y || rect?.y,
+    width: elem.width,
+    height: elem.height,
+  }
+
+  getText.attr({
+    'x': params.x,
+    'y': params.y
+  })
+}
 
 
 
@@ -356,21 +401,24 @@ MapSVG.on('click', function (){
   const title = this.dataset.title || '';
   const elem = this.getBoundingClientRect();
   const parent = mapStreetMapContent.getBoundingClientRect();
-  const getText = this.querySelector('.text');
-  const getTextInfo = getText.getBoundingClientRect();
-  const xPosition = +this.dataset.position || 2;
+  const getText = $(this).find('.text');
+  const fixWidth = +getText.attr('data-width');
+  const fixHeight = +getText.attr('data-height');
+
+  const path = this.querySelector('path')?.getBBox();
+  const rect = this.querySelector('rect')?.getBBox();
 
   const params = {
-    x: elem.left - parent.left,
-    y: elem.top - parent.top,
-    width: elem.width,
-    height: elem.height,
+    x: path?.x || rect?.x,
+    y: path?.y || rect?.y,
+    width: fixWidth || path?.width || rect?.width,
+    height: fixHeight || path?.height || rect?.height,
   }
 
     mapStreetMapContentInfo.css({
-      left: params.x,
-      top: params.y,
-      transform: `translate(${(getTextInfo.left - elem.left) - mapStreetMapContentInfo.width() / xPosition}px, ${(getTextInfo.top - elem.top) + getTextInfo.height + 30}px)`
+      left: params.x + (params.width / 2),
+      top: params.y + params.height,
+      transform: `translate(-${mapStreetMapContentInfo.width() / 2.2}px, 20px)`
     }).addClass('active');
 
     mapStreetMapContentInfo.find('.map-street-map-content-info-title').text(title);
@@ -424,3 +472,61 @@ mapStreetMapContentInfo.on('mouseleave', function (){
     })
 })
 
+const svg = $(".svg-map");
+const zoomInButton = $('.map-street-zoom-plus');
+const zoomOutButton = $('.map-street-zoom-minous');
+
+
+zoomInButton.on("click", () => {
+  scale = Math.min(scale * 1.2, 5);
+  updateTransform();
+});
+
+zoomOutButton.on("click", () => {
+  scale = Math.max(scale / 1.2, 0.5);
+  updateTransform();
+});
+
+function updateTransform() {
+  if(window.innerWidth >= 768){
+    svg.css('transform', `translate(${panX}px, ${panY}px) scale(${scale})`);
+  }
+}
+
+svg.on("mousedown", (e) => {
+  isPanning = true;
+  startX = e.clientX - panX;
+  startY = e.clientY - panY;
+  svg.css('cursor', "grabbing");
+});
+
+svg.on("mousemove", (e) => {
+  if (!isPanning) return;
+  panX = e.clientX - startX;
+  panY = e.clientY - startY;
+  updateTransform();
+});
+
+svg.on("mouseup", () => {
+  isPanning = false;
+  svg.css('cursor', "grab");
+});
+
+svg.on("mouseleave", () => {
+  isPanning = false;
+  svg.css('cursor', "grab");
+});
+
+svg.on("wheel", (e) => {
+  e.preventDefault();
+  const delta = e.originalEvent.deltaY > 0 ? 0.9 : 1.1;
+
+  const newScale = Math.min(Math.max(scale * delta, 0.5), 5);
+  if (newScale < scale) {
+    panX = panX * (newScale / scale);
+    panY = panY * (newScale / scale);
+  }
+
+  scale = newScale;
+  updateTransform();
+});
