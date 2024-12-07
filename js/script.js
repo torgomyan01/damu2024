@@ -344,7 +344,7 @@ const mapStreetTabsItem = document.querySelectorAll('.map-street-tabs-item');
 const svgTabs = $('.map-street-map-content svg');
 
 mapStreetTabsItem.forEach((item, index) => {
-  item.addEventListener('click', function (){
+  item.addEventListener('click', function () {
     mapStreetTabsItem.forEach((_el) => _el.classList.remove('active'));
 
     item.classList.add('active');
@@ -357,16 +357,94 @@ mapStreetTabsItem.forEach((item, index) => {
     panX = 0;
     panY = 0;
 
-    updateTransform()
+    updateTransform();
+    updateSVG()
+  })
+})
+updateSVG()
+
+function updateSVG() {
+  MapSVG.each((index, g) => {
+    setPositionTextMap(g)
+  })
+}
+
+
+MapSVG.on('click', function (e) {
+  const title = this.dataset.title || '';
+  const getText = $(this).find('.text');
+  const fixWidth = +getText.attr('data-width');
+  const fixHeight = +getText.attr('data-height');
+  const path = this.querySelector('path')?.getBoundingClientRect();
+  const rect = this.querySelector('rect')?.getBoundingClientRect();
+
+  const params = {
+    x: e.clientX,
+    y: e.clientY,
+    width: path?.width || rect?.width,
+    height: path?.height || rect?.height,
+  }
+
+
+  mapStreetMapContentInfo.css({
+    left: params.x,
+    top: params.y,
+    transform: `translate(-50%, 20px)`
+  }).addClass('active');
+
+  mapStreetMapContentInfo.find('.map-street-map-content-info-title').text(title);
+
+  MapSVG.find('path').css({
+    fill: '',
+    stroke: '',
+  })
+  MapSVG.find('rect').css({
+    fill: '',
+    stroke: '',
+  })
+
+  $(this).find('path[fill="white"]').css({
+    fill: '#f3eeee',
+    stroke: 'red',
+  })
+  $(this).find('rect[fill="white"]').css({
+    fill: '#f3eeee',
+    stroke: 'red',
+  })
+
+})
+
+MapSVG.on('mouseleave', function () {
+  mapStreetMapContentInfo.removeClass('active');
+
+  MapSVG.find('path').css({
+    fill: '',
+    stroke: '',
+  })
+  MapSVG.find('rect').css({
+    fill: '',
+    stroke: '',
   })
 })
 
-MapSVG.each((index, g) => {
-  setPositionTextMap(g)
+mapStreetMapContentInfo.on('mouseenter', function () {
+  mapStreetMapContentInfo.addClass('active');
+})
+mapStreetMapContentInfo.on('mouseleave', function () {
+  mapStreetMapContentInfo.removeClass('active');
+
+  MapSVG.find('path').css({
+    fill: '',
+    stroke: '',
+  })
+  MapSVG.find('rect').css({
+    fill: '',
+    stroke: '',
+  })
 })
 
 
-function setPositionTextMap(g){
+function setPositionTextMap(g) {
   const getText = $(g).find('foreignObject');
   const path = g.querySelector('path')?.getBBox();
   const rect = g.querySelector('rect')?.getBBox();
@@ -396,82 +474,6 @@ function setPositionTextMap(g){
 }
 
 
-
-MapSVG.on('click', function (){
-  const title = this.dataset.title || '';
-  const elem = this.getBoundingClientRect();
-  const parent = mapStreetMapContent.getBoundingClientRect();
-  const getText = $(this).find('.text');
-  const fixWidth = +getText.attr('data-width');
-  const fixHeight = +getText.attr('data-height');
-
-  const path = this.querySelector('path')?.getBBox();
-  const rect = this.querySelector('rect')?.getBBox();
-
-  const params = {
-    x: path?.x || rect?.x,
-    y: path?.y || rect?.y,
-    width: fixWidth || path?.width || rect?.width,
-    height: fixHeight || path?.height || rect?.height,
-  }
-
-    mapStreetMapContentInfo.css({
-      left: params.x + (params.width / 2),
-      top: params.y + params.height,
-      transform: `translate(-${mapStreetMapContentInfo.width() / 2.2}px, 20px)`
-    }).addClass('active');
-
-    mapStreetMapContentInfo.find('.map-street-map-content-info-title').text(title);
-
-    MapSVG.find('path').css({
-      fill: '',
-      stroke: '',
-    })
-    MapSVG.find('rect').css({
-      fill: '',
-      stroke: '',
-    })
-
-    $(this).find('path[fill="white"]').css({
-      fill: '#f3eeee',
-      stroke: 'red',
-    })
-    $(this).find('rect[fill="white"]').css({
-      fill: '#f3eeee',
-      stroke: 'red',
-    })
-
-})
-
-MapSVG.on('mouseleave', function (){
-    mapStreetMapContentInfo.removeClass('active');
-
-    MapSVG.find('path').css({
-      fill: '',
-      stroke: '',
-    })
-    MapSVG.find('rect').css({
-      fill: '',
-      stroke: '',
-    })
-})
-
-mapStreetMapContentInfo.on('mouseenter', function (){
-  mapStreetMapContentInfo.addClass('active');
-})
-mapStreetMapContentInfo.on('mouseleave', function (){
-    mapStreetMapContentInfo.removeClass('active');
-
-    MapSVG.find('path').css({
-      fill: '',
-      stroke: '',
-    })
-    MapSVG.find('rect').css({
-      fill: '',
-      stroke: '',
-    })
-})
-
 const svg = $(".svg-map");
 const zoomInButton = $('.map-street-zoom-plus');
 const zoomOutButton = $('.map-street-zoom-minous');
@@ -488,7 +490,7 @@ zoomOutButton.on("click", () => {
 });
 
 function updateTransform() {
-  if(window.innerWidth >= 768){
+  if (window.innerWidth >= 768) {
     svg.css('transform', `translate(${panX}px, ${panY}px) scale(${scale})`);
   }
 }

@@ -1587,6 +1587,7 @@ footer {
       width: 100%;
       //min-width: 1517px;
       height: auto;
+      position: relative;
       @media (max-width: 768px){
         height: 510px;
         //min-width: auto;
@@ -1612,7 +1613,7 @@ footer {
 
     &-info{
       width: 245.393px;
-      position: absolute;
+      position: fixed;
       top: 50px;
       left: 50px;
       background-color: #FFF;

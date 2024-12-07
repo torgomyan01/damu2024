@@ -2797,6 +2797,7 @@ footer.pink-footer .menu-info a:hover {
 .map-street-map-content svg {
   width: 100%;
   height: auto;
+  position: relative;
 }
 @media (max-width: 768px) {
   .map-street-map-content svg {
@@ -2820,7 +2821,7 @@ footer.pink-footer .menu-info a:hover {
 }
 .map-street-map-content-info {
   width: 245.393px;
-  position: absolute;
+  position: fixed;
   top: 50px;
   left: 50px;
   background-color: #FFF;
