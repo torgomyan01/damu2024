@@ -2808,6 +2808,12 @@ footer.pink-footer .menu-info a:hover {
 .map-street-map-content svg g {
   cursor: pointer;
 }
+.map-street-map-content svg g .text {
+  font-size: 12px;
+  color: #042B62;
+  text-align: center;
+  display: inline-block;
+}
 .map-street-map-content-info {
   width: 245.393px;
   position: absolute;

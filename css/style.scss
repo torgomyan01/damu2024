@@ -1595,6 +1595,13 @@ footer {
       }
       g{
         cursor: pointer;
+
+        .text{
+          font-size: 12px;
+          color:#042B62;
+          text-align: center;
+          display: inline-block;
+        }
       }
     }
 
